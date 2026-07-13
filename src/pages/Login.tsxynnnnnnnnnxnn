@@ -22,7 +22,10 @@ export default function Login() {
       </div>
     )
   }
-
+} catch (err) {
+      setError(err instanceof Error ? err.message : 'Unknown error')
+      setSubmitting(false)
+    }
   if (user) {
     return <Navigate to="/" replace />
   }
@@ -35,7 +38,7 @@ export default function Login() {
       await signInWithEmailAndPassword(auth, email, password)
     } catch (err) {
       // Deliberately generic — don't reveal whether the email exists.
-      setError(err instanceof Error ? err.message : 'Unknown error')
+      setError('Invalid email or password.')
       setSubmitting(false)
     }
   }
